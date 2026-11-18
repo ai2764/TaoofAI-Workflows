@@ -24,7 +24,7 @@ These are reusable templates based on the wiring used in the video, with placeho
 
 Motion Context uses a **previous completed generation**, not feedback from the current sampler execution.
 
-## References to select
+## References for templates 01/02
 
 Place your files in ComfyUI's input folder, then select them in the loader nodes:
 
@@ -36,7 +36,7 @@ Place your files in ComfyUI's input folder, then select them in the loader nodes
 
 The model receives the rendered video, not a Blender/Three.js scene file. Make intended front/back, character placement and camera direction visible and consistent with your picture references and prompt.
 
-## Settings in these templates
+## Settings in templates 01/02
 
 - Six-step Pika H3 Flex sampling, 1280 × 704, 24 fps.
 - First clip: **124 frames**.
@@ -59,3 +59,36 @@ Model filenames in the templates reflect the local setup used for the episode; s
 [First clip API graph](api/01-first-clip.api.json) · [Motion Context API graph](api/02-motion-context.api.json)
 
 The API and UI variants have the same generation inputs and links. UI-only node positions and fixed-seed controls are included in the normal ComfyUI files.
+
+## Optional: add an opening-frame layout
+
+[03-optional-first-frame.json](03-optional-first-frame.json) is a separate eight-second, two-character example based on the fast-camera test. [API version](api/03-optional-first-frame.api.json).
+
+It adds a native **MiniMaxH3AddGuide** node with **frame_idx = 0**. An opening layout image sets an initial composition in addition to the ordinary character pictures and rough guide video. Use a resolved starting-frame image matching the guide's initial camera view, rather than an unrelated character portrait. This extra image is the opening composition used in the camera test, separate from the four character references. This is not ControlNet, an animated body-pose reference, or a guarantee of exact camera following.
+
+| Role | Example file |
+| --- | --- |
+| Picture 1: first fighter's body and clothes | `fighter-a-body.png` |
+| Picture 2: first fighter's face | `fighter-a-face.png` |
+| Picture 3: second fighter's body and clothes | `fighter-b-body.png` |
+| Picture 4: second fighter's face | `fighter-b-face.png` |
+| Additional initial composition, not Picture 5 | `opening-layout.png` |
+| Actual rendered camera/position guide | `3d-guide-fast-camera.mp4` |
+
+This picture order differs from templates 01/02. Replace every placeholder with your own file and update the prompt when changing the reference order or camera route. The included prompt is an example with a push toward the first face, a fast move to the second face, then a pullback. It does not invent a matching camera route in a different guide video.
+
+Important wiring:
+
+- Reference To Video's **positive** → Add Guide's **positive**.
+- Reference To Video's **latent** → Add Guide's **latent** input.
+- Video VAE → Add Guide's **vae**; opening layout Load Image → **image**.
+- Add Guide's single **positive/CONDITIONING** output → Basic Guider.
+- Reference To Video's **latent** still feeds the sampler directly. Add Guide does not produce a new sampler latent.
+
+The native node must exist in your ComfyUI build. This local example uses the same installed H3/Pika models as the other templates; no extra ControlNet weights were added.
+
+Template 03 is a **standalone clip**: 192 frames at 24 fps, six-step Pika sampling, and no Motion Context cache writer. It does not create slot 1 for template 02. Use the original 01→02 sequence for the saved-latent continuation example; do not point template 02 at an unrelated old cache after running 03.
+
+For the coarse guide, generic bodies can control camera and root positions while the prompt lets H3 invent bodily acting. Simple eyes and a mouth can indicate where a face belongs and which direction it faces; the character pictures define the actual human features. Inspect the native-speed source/result comparison. The tested fast-camera sequence followed the broad shot order, but its close-up crops and transitions were not frame-exact.
+
+No reference media, private voice recordings, model weights or latent caches are included.

@@ -1,0 +1,332 @@
+{
+  "92": {
+    "class_type": "SaveVideo",
+    "inputs": {
+      "filename_prefix": "h3_3d_guide/sequence_01/clip1_native_layout",
+      "format": "auto",
+      "format.codec": "auto",
+      "video": [
+        "152",
+        0
+      ],
+      "codec": "auto"
+    },
+    "_meta": {
+      "title": "SaveVideo"
+    }
+  },
+  "119": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+    },
+    "_meta": {
+      "title": "VAELoader"
+    }
+  },
+  "120": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+    },
+    "_meta": {
+      "title": "VAELoader"
+    }
+  },
+  "121": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "125",
+        0
+      ],
+      "vae": [
+        "120",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "VAEDecodeAudio"
+    }
+  },
+  "122": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "125",
+        0
+      ],
+      "vae": [
+        "119",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "VAEDecode"
+    }
+  },
+  "123": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "lcm"
+    },
+    "_meta": {
+      "title": "KSamplerSelect"
+    }
+  },
+  "125": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "129",
+        0
+      ],
+      "guider": [
+        "126",
+        0
+      ],
+      "sampler": [
+        "123",
+        0
+      ],
+      "sigmas": [
+        "147",
+        0
+      ],
+      "latent_image": [
+        "136",
+        1
+      ]
+    },
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "126": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "145",
+        0
+      ],
+      "conditioning": [
+        "272",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "BasicGuider"
+    }
+  },
+  "127": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+      "weight_dtype": "default"
+    },
+    "_meta": {
+      "title": "UNETLoader"
+    }
+  },
+  "128": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+      "type": "minimax",
+      "device": "default"
+    },
+    "_meta": {
+      "title": "CLIPLoader"
+    }
+  },
+  "129": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 2026111801
+    },
+    "_meta": {
+      "title": "RandomNoise"
+    }
+  },
+  "136": {
+    "class_type": "MiniMaxH3ReferenceToVideo",
+    "inputs": {
+      "prompt": [
+        "138",
+        0
+      ],
+      "width": 1280,
+      "height": 704,
+      "length": 124,
+      "ref_image_size": "match",
+      "clip": [
+        "128",
+        0
+      ],
+      "vae": [
+        "119",
+        0
+      ],
+      "audio_vae": [
+        "120",
+        0
+      ],
+      "ref_images.ref_image_0": [
+        "149",
+        0
+      ],
+      "ref_videos.ref_video_0": [
+        "162",
+        0
+      ],
+      "ref_images.ref_image_1": [
+        "150",
+        0
+      ],
+      "ref_images.ref_image_2": [
+        "163",
+        0
+      ],
+      "ref_images.ref_image_3": [
+        "164",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "MiniMaxH3ReferenceToVideo"
+    }
+  },
+  "145": {
+    "class_type": "LoraLoaderModelOnly",
+    "inputs": {
+      "lora_name": "pika_h3_flex_ref2va_v1_bf16.safetensors",
+      "strength_model": 1,
+      "model": [
+        "127",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "LoraLoaderModelOnly"
+    }
+  },
+  "147": {
+    "class_type": "ManualSigmas",
+    "inputs": {
+      "sigmas": "1.0, 0.972973, 0.923077, 0.8, 0.571429, 0.333333, 0.0"
+    },
+    "_meta": {
+      "title": "ManualSigmas"
+    }
+  },
+  "152": {
+    "class_type": "CreateVideo",
+    "inputs": {
+      "fps": 24,
+      "bit_depth": "auto",
+      "color_space": "sRGB",
+      "codec": "none",
+      "images": [
+        "122",
+        0
+      ],
+      "audio": [
+        "121",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "CreateVideo"
+    }
+  },
+  "138": {
+    "class_type": "PrimitiveStringMultiline",
+    "inputs": {
+      "value": "{\n  \"subject_definitions\": \"<Picture 1> defines ONE adult woman Mia in a glossy opaque pearl-white fitted cyber suit with orange seams, slim armor and flat white boots. Its three views show the SAME woman. <Picture 2> defines the bright daytime rooftop platform and detailed futuristic city. <Picture 3> defines Mia's exact face and long dark brown half-tied hair. <Picture 4> defines the white-orange angular hardbody airship with cyan-core engines and open side hatch; it remains distant background above the roof. No other performers. <Video 1> supplies root positions, scale, broad facing direction and camera only, with deliberately unanimated joints.\",\n  \"summary\": \"A continuous cinematic action study of Mia, with natural model-authored articulation. \",\n  \"retention_analysis\": \"Keep Mia's face, white-orange suit, body proportions and daylight city stable. Replace every simple proxy body and box building with the referenced real woman and detailed architecture. The one rigid proxy is a positional guide only; freely animate its real replacement with natural steps, weight shifts, bent knees, arm swing and coherent hands. Keep two arms connected throughout turns. No slow motion, teleports, duplicated people or literal mannequins. One continuous shot.\",\n  \"detailed_description\": \"0-1.2 seconds: Full-body three-quarter tracking view; Mia starts a natural forward jog across the bright roof, looking along her route. 1.2-2.2 seconds: Build to a light run with connected footfalls and reciprocal arm swing. 2.2-2.9 seconds: Make ONE low forward jump, both feet briefly clear the deck, knees flex and land with a small visible compression. The root follows the small arc in <Video 1>. 2.9-4.2 seconds: Run out of the landing without stopping, arms and hips absorbing momentum naturally. 4.2-5.1667 seconds: Continue the SAME forward jog, one leg advancing and the other pushing off, a clear ongoing arm swing. End MID-STRIDE, still moving right along the deck, not posing or slowing; camera tracks at the same speed.\",\n  \"overall_soundscape\": \"Open rooftop wind, distant airship engine, synchronized running or walking steps, restrained breathing and suit movement. No dialogue.\",\n  \"non_diegetic_music\": \"N/A\"\n}"
+    }
+  },
+  "149": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "character-body.png"
+    }
+  },
+  "161": {
+    "class_type": "LoadVideo",
+    "inputs": {
+      "file": "3d-guide-clip-1.mp4"
+    }
+  },
+  "162": {
+    "class_type": "GetVideoComponents",
+    "inputs": {
+      "video": [
+        "161",
+        0
+      ]
+    }
+  },
+  "150": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "scene-reference.png"
+    }
+  },
+  "163": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "character-face.png"
+    }
+  },
+  "164": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "prop-reference.png"
+    }
+  },
+  "205": {
+    "class_type": "MiniMaxH3MotionContextSaveLatent",
+    "inputs": {
+      "latent": [
+        "125",
+        0
+      ],
+      "filename_prefix": "h3_3d_guide/sequence_01/clip",
+      "clip_index": 1
+    }
+  },
+  "271": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "opening-layout.png"
+    },
+    "_meta": {
+      "title": "First frame layout, not global scene reference"
+    }
+  },
+  "272": {
+    "class_type": "MiniMaxH3AddGuide",
+    "inputs": {
+      "positive": [
+        "136",
+        0
+      ],
+      "latent": [
+        "136",
+        1
+      ],
+      "vae": [
+        "119",
+        0
+      ],
+      "image": [
+        "271",
+        0
+      ],
+      "frame_idx": 0
+    },
+    "_meta": {
+      "title": "Native H3 first-frame layout anchor"
+    }
+  }
+}

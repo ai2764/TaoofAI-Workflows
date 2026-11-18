@@ -92,3 +92,20 @@ Template 03 is a **standalone clip**: 192 frames at 24 fps, six-step Pika sampli
 For the coarse guide, generic bodies can control camera and root positions while the prompt lets H3 invent bodily acting. Simple eyes and a mouth can indicate where a face belongs and which direction it faces; the character pictures define the actual human features. Inspect the native-speed source/result comparison. The tested fast-camera sequence followed the broad shot order, but its close-up crops and transitions were not frame-exact.
 
 No reference media, private voice recordings, model weights or latent caches are included.
+
+
+## Optional: opening layout with a saved-latent continuation
+
+Use [04-layout-first-clip.json](04-layout-first-clip.json) ([API](api/04-layout-first-clip.api.json)) **instead of 01**, then continue with **02**. This keeps the character/environment/face/prop picture order of 01/02 and adds `opening-layout.png` through native **MiniMaxH3AddGuide at frame 0**. It also saves Motion Context slot **1** in the same sequence folder, so template 02 can load that completed first clip.
+
+This is the wiring used for the revised continuation example: a starting composition matching the rough guide helped keep the first segment's framing more stable in this test. It is not a guarantee of exact camera tracking. Ordinary Picture references are still whole-clip appearance references; the extra native frame-zero input is separate, and is not Picture 5 or a tail-frame lock. No additional ControlNet or model weights are required.
+
+Template 04 uses **124 frames**. Its sampler latent still comes directly from Reference To Video; Add Guide changes only the positive conditioning passed to the Guider. The sampler output also feeds Save Latent. Template 03 remains the separate standalone fast-camera example described above.
+
+### Preserve the full guide at frame-grid boundaries
+
+In the local H3 build used for this episode, the reference-video encoder trims its input to the `17n + 5` frame grid. A 146-frame guide is trimmed to 141 even if generation is requested at 158. To retain all 146 original guide frames, pad 12 copies of its last frame **before generation**, making a 158-frame guide; do not offset the comparison afterward.
+
+With 22 frames of inherited context removed, the 158-frame generation provides 136 new frames. The episode's equal-duration comparison displays the first 124 of those new frames against original guide frames 22 through 145. Thus the selected action is **124 + 124 = 248 frames (10.33 seconds at 24 fps)**; the pause at the join is an editorial hold shown separately.
+
+All downloadable media names are placeholders. Six media loaders in 04 require your own four appearance images, guide video, and opening layout. Importing the template without those files can show missing-media warnings; select the real files before running. The UI was imported into the current frontend and all 25 nodes and generation inputs round-tripped to the API variant without submitting a GPU job. This validates wiring, not a fresh generation on another installation.

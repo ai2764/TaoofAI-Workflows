@@ -1,0 +1,1850 @@
+{
+  "id": "70dd3daa-09d4-5e7a-9c92-c702037ec128",
+  "revision": 0,
+  "last_node_id": 272,
+  "last_link_id": 31,
+  "nodes": [
+    {
+      "id": 92,
+      "type": "SaveVideo",
+      "pos": [
+        4000,
+        250
+      ],
+      "size": [
+        270,
+        106
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "links": null
+        }
+      ],
+      "title": "SaveVideo",
+      "properties": {},
+      "widgets_values": [
+        "h3_3d_guide/sequence_01/clip1_native_layout",
+        "auto",
+        "auto",
+        "auto"
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "h3_3d_guide/clip-1",
+        "format": "auto",
+        "format.codec": "auto",
+        "codec": "auto"
+      }
+    },
+    {
+      "id": 119,
+      "type": "VAELoader",
+      "pos": [
+        50,
+        50
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            5,
+            15,
+            29
+          ]
+        }
+      ],
+      "title": "VAELoader",
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "minimax_h3_video_vae_fp16.safetensors"
+      ],
+      "widgets_values_named": {
+        "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+      }
+    },
+    {
+      "id": 120,
+      "type": "VAELoader",
+      "pos": [
+        50,
+        200
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            3,
+            16
+          ]
+        }
+      ],
+      "title": "VAELoader",
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "minimax_h3_audio_vae_fp32.safetensors"
+      ],
+      "widgets_values_named": {
+        "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+      }
+    },
+    {
+      "id": 121,
+      "type": "VAEDecodeAudio",
+      "pos": [
+        2850,
+        200
+      ],
+      "size": [
+        164.2388671875,
+        46
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 2
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            24
+          ]
+        }
+      ],
+      "title": "VAEDecodeAudio",
+      "properties": {
+        "Node name for S&R": "VAEDecodeAudio"
+      }
+    },
+    {
+      "id": 122,
+      "type": "VAEDecode",
+      "pos": [
+        2850,
+        400
+      ],
+      "size": [
+        140,
+        46
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 4
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            23
+          ]
+        }
+      ],
+      "title": "VAEDecode",
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      }
+    },
+    {
+      "id": 123,
+      "type": "KSamplerSelect",
+      "pos": [
+        50,
+        350
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER",
+          "type": "SAMPLER",
+          "links": [
+            8
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSamplerSelect"
+      },
+      "widgets_values": [
+        "lcm"
+      ],
+      "widgets_values_named": {
+        "sampler_name": "lcm"
+      }
+    },
+    {
+      "id": 125,
+      "type": "SamplerCustomAdvanced",
+      "pos": [
+        2450,
+        200
+      ],
+      "size": [
+        212.3638671875,
+        106
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "noise",
+          "type": "NOISE",
+          "link": 6
+        },
+        {
+          "name": "guider",
+          "type": "GUIDER",
+          "link": 7
+        },
+        {
+          "name": "sampler",
+          "type": "SAMPLER",
+          "link": 8
+        },
+        {
+          "name": "sigmas",
+          "type": "SIGMAS",
+          "link": 9
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 10
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "LATENT",
+          "links": [
+            2,
+            4,
+            26
+          ]
+        },
+        {
+          "name": "denoised_output",
+          "type": "LATENT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SamplerCustomAdvanced"
+      }
+    },
+    {
+      "id": 126,
+      "type": "BasicGuider",
+      "pos": [
+        2150,
+        200
+      ],
+      "size": [
+        159.568359375,
+        46
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 11
+        },
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 31
+        }
+      ],
+      "outputs": [
+        {
+          "name": "GUIDER",
+          "type": "GUIDER",
+          "links": [
+            7
+          ]
+        }
+      ],
+      "title": "BasicGuider",
+      "properties": {
+        "Node name for S&R": "BasicGuider"
+      }
+    },
+    {
+      "id": 127,
+      "type": "UNETLoader",
+      "pos": [
+        50,
+        500
+      ],
+      "size": [
+        270,
+        82
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            22
+          ]
+        }
+      ],
+      "title": "UNETLoader",
+      "properties": {
+        "Node name for S&R": "UNETLoader"
+      },
+      "widgets_values": [
+        "minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+        "default"
+      ],
+      "widgets_values_named": {
+        "unet_name": "minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+        "weight_dtype": "default"
+      }
+    },
+    {
+      "id": 128,
+      "type": "CLIPLoader",
+      "pos": [
+        50,
+        700
+      ],
+      "size": [
+        270,
+        106
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            14
+          ]
+        }
+      ],
+      "title": "CLIPLoader",
+      "properties": {
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+        "minimax",
+        "default"
+      ],
+      "widgets_values_named": {
+        "clip_name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+        "type": "minimax",
+        "device": "default"
+      }
+    },
+    {
+      "id": 129,
+      "type": "RandomNoise",
+      "pos": [
+        50,
+        950
+      ],
+      "size": [
+        270,
+        82
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "NOISE",
+          "type": "NOISE",
+          "links": [
+            6
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "RandomNoise"
+      },
+      "widgets_values": [
+        2026111801,
+        "fixed"
+      ],
+      "widgets_values_named": {
+        "noise_seed": 2026111801,
+        "control_after_generate": "randomize"
+      }
+    },
+    {
+      "id": 136,
+      "type": "MiniMaxH3ReferenceToVideo",
+      "pos": [
+        1200,
+        200
+      ],
+      "size": [
+        400,
+        444
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 14
+        },
+        {
+          "name": "vae",
+          "shape": 7,
+          "type": "VAE",
+          "link": 15
+        },
+        {
+          "name": "audio_vae",
+          "shape": 7,
+          "type": "VAE",
+          "link": 16
+        },
+        {
+          "name": "ref_images.ref_image_0",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 17
+        },
+        {
+          "name": "ref_images.ref_image_1",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 19
+        },
+        {
+          "name": "ref_images.ref_image_2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 20
+        },
+        {
+          "name": "ref_images.ref_image_3",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 21
+        },
+        {
+          "name": "ref_images.ref_image_4",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "ref_videos.ref_video_0",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 18
+        },
+        {
+          "name": "ref_video_audios.ref_video_audio_0",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "ref_video_audios.ref_video_audio_1",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "ref_video_audios.ref_video_audio_2",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "ref_audios.ref_audio_0",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": 13
+        },
+        {
+          "name": "ref_videos.ref_video_1",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            27
+          ]
+        },
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            10,
+            28
+          ]
+        }
+      ],
+      "title": "MiniMaxH3ReferenceToVideo",
+      "properties": {
+        "Node name for S&R": "MiniMaxH3ReferenceToVideo"
+      },
+      "widgets_values": [
+        "",
+        1280,
+        704,
+        124,
+        "match"
+      ],
+      "widgets_values_named": {
+        "prompt": "",
+        "width": 1280,
+        "height": 704,
+        "length": 124,
+        "ref_image_size": "match"
+      }
+    },
+    {
+      "id": 138,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        500,
+        250
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            13
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "{\n  \"subject_definitions\": \"<Picture 1> defines ONE adult woman Mia in a glossy opaque pearl-white fitted cyber suit with orange seams, slim armor and flat white boots. Its three views show the SAME woman. <Picture 2> defines the bright daytime rooftop platform and detailed futuristic city. <Picture 3> defines Mia's exact face and long dark brown half-tied hair. <Picture 4> defines the white-orange angular hardbody airship with cyan-core engines and open side hatch; it remains distant background above the roof. No other performers. <Video 1> supplies root positions, scale, broad facing direction and camera only, with deliberately unanimated joints.\",\n  \"summary\": \"A continuous cinematic action study of Mia, with natural model-authored articulation. \",\n  \"retention_analysis\": \"Keep Mia's face, white-orange suit, body proportions and daylight city stable. Replace every simple proxy body and box building with the referenced real woman and detailed architecture. The one rigid proxy is a positional guide only; freely animate its real replacement with natural steps, weight shifts, bent knees, arm swing and coherent hands. Keep two arms connected throughout turns. No slow motion, teleports, duplicated people or literal mannequins. One continuous shot.\",\n  \"detailed_description\": \"0-1.2 seconds: Full-body three-quarter tracking view; Mia starts a natural forward jog across the bright roof, looking along her route. 1.2-2.2 seconds: Build to a light run with connected footfalls and reciprocal arm swing. 2.2-2.9 seconds: Make ONE low forward jump, both feet briefly clear the deck, knees flex and land with a small visible compression. The root follows the small arc in <Video 1>. 2.9-4.2 seconds: Run out of the landing without stopping, arms and hips absorbing momentum naturally. 4.2-5.1667 seconds: Continue the SAME forward jog, one leg advancing and the other pushing off, a clear ongoing arm swing. End MID-STRIDE, still moving right along the deck, not posing or slowing; camera tracks at the same speed.\",\n  \"overall_soundscape\": \"Open rooftop wind, distant airship engine, synchronized running or walking steps, restrained breathing and suit movement. No dialogue.\",\n  \"non_diegetic_music\": \"N/A\"\n}"
+      ],
+      "widgets_values_named": {
+        "value": "{\n  \"subject_definitions\": \"<Picture 1> defines ONE adult woman Mia in a glossy opaque pearl-white fitted cyber suit with orange seams, slim armor and flat white boots. Its three views show the SAME woman. <Picture 2> defines the bright daytime rooftop platform and detailed futuristic city. <Picture 3> defines Mia's exact face and long dark brown half-tied hair. <Picture 4> defines the white-orange angular hardbody airship with cyan-core engines and open side hatch; it remains distant background above the roof. No other performers. <Video 1> supplies root positions, scale, broad facing direction and camera only, with deliberately unanimated joints.\",\n  \"summary\": \"A continuous cinematic action study of Mia, with natural model-authored articulation. \",\n  \"retention_analysis\": \"Keep Mia's face, white-orange suit, body proportions and daylight city stable. Replace every simple proxy body and box building with the referenced real woman and detailed architecture. The one rigid proxy is a positional guide only; freely animate its real replacement with natural steps, weight shifts, bent knees, arm swing and coherent hands. Keep two arms connected throughout turns. No slow motion, teleports, duplicated people or literal mannequins. One continuous shot.\",\n  \"detailed_description\": \"0-1.2 seconds: Full-body three-quarter tracking view; Mia starts a natural forward jog across the bright roof, looking along her route. 1.2-2.2 seconds: Build to a light run with connected footfalls and reciprocal arm swing. 2.2-2.9 seconds: Make ONE low forward jump, both feet briefly clear the deck, knees flex and land with a small visible compression. The root follows the small arc in <Video 1>. 2.9-4.2 seconds: Run out of the landing without stopping, arms and hips absorbing momentum naturally. 4.2-5.1667 seconds: Continue the SAME forward jog, one leg advancing and the other pushing off, a clear ongoing arm swing. End MID-STRIDE, still moving right along the deck, not posing or slowing; camera tracks at the same speed.\",\n  \"overall_soundscape\": \"Open rooftop wind, distant airship engine, synchronized running or walking steps, restrained breathing and suit movement. No dialogue.\",\n  \"non_diegetic_music\": \"N/A\"\n}"
+      }
+    },
+    {
+      "id": 145,
+      "type": "LoraLoaderModelOnly",
+      "pos": [
+        500,
+        50
+      ],
+      "size": [
+        270,
+        82
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 22
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "title": "LoraLoaderModelOnly",
+      "properties": {
+        "Node name for S&R": "LoraLoaderModelOnly"
+      },
+      "widgets_values": [
+        "pika_h3_flex_ref2va_v1_bf16.safetensors",
+        1
+      ],
+      "widgets_values_named": {
+        "lora_name": "pika_h3_flex_ref2va_v1_bf16.safetensors",
+        "strength_model": 1
+      }
+    },
+    {
+      "id": 147,
+      "type": "ManualSigmas",
+      "pos": [
+        50,
+        1150
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SIGMAS",
+          "type": "SIGMAS",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ManualSigmas"
+      },
+      "widgets_values": [
+        "1.0, 0.972973, 0.923077, 0.8, 0.571429, 0.333333, 0.0"
+      ],
+      "widgets_values_named": {
+        "sigmas": "1.0, 0.972973, 0.923077, 0.8, 0.571429, 0.333333, 0.0"
+      }
+    },
+    {
+      "id": 149,
+      "type": "LoadImage",
+      "pos": [
+        500,
+        650
+      ],
+      "size": [
+        282.798828125,
+        314
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            17
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "character-body.png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "character-body.png",
+        "upload": "image"
+      }
+    },
+    {
+      "id": 150,
+      "type": "LoadImage",
+      "pos": [
+        500,
+        1050
+      ],
+      "size": [
+        282.798828125,
+        314
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            19
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "scene-reference.png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "scene-reference.png",
+        "upload": "image"
+      }
+    },
+    {
+      "id": 152,
+      "type": "CreateVideo",
+      "pos": [
+        3600,
+        250
+      ],
+      "size": [
+        270,
+        150
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 23
+        },
+        {
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 24
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "title": "CreateVideo",
+      "properties": {
+        "Node name for S&R": "CreateVideo"
+      },
+      "widgets_values": [
+        24,
+        "auto",
+        "sRGB",
+        "none"
+      ],
+      "widgets_values_named": {
+        "fps": 24,
+        "bit_depth": "auto",
+        "color_space": "sRGB",
+        "codec": "none"
+      }
+    },
+    {
+      "id": 161,
+      "type": "LoadVideo",
+      "pos": [
+        850,
+        650
+      ],
+      "size": [
+        282.798828125,
+        233.0743408203125
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            25
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadVideo"
+      },
+      "widgets_values": [
+        "3d-guide-clip-1.mp4",
+        "image"
+      ],
+      "widgets_values_named": {
+        "file": "3d-guide-clip-1.mp4",
+        "upload": "image"
+      }
+    },
+    {
+      "id": 162,
+      "type": "GetVideoComponents",
+      "pos": [
+        850,
+        450
+      ],
+      "size": [
+        193.530859375,
+        106
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 25
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            18
+          ]
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null
+        },
+        {
+          "name": "fps",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "bit_depth",
+          "type": "COMBO",
+          "links": null
+        },
+        {
+          "name": "color_space",
+          "type": "COMBO",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GetVideoComponents"
+      }
+    },
+    {
+      "id": 163,
+      "type": "LoadImage",
+      "pos": [
+        850,
+        1050
+      ],
+      "size": [
+        282.798828125,
+        314
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            20
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "character-face.png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "character-face.png",
+        "upload": "image"
+      }
+    },
+    {
+      "id": 164,
+      "type": "LoadImage",
+      "pos": [
+        1200,
+        1050
+      ],
+      "size": [
+        282.798828125,
+        314
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            21
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "prop-reference.png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "prop-reference.png",
+        "upload": "image"
+      }
+    },
+    {
+      "id": 205,
+      "type": "MiniMaxH3MotionContextSaveLatent",
+      "pos": [
+        2450,
+        550
+      ],
+      "size": [
+        305.6890625,
+        82
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "link": 26
+        }
+      ],
+      "outputs": [
+        {
+          "name": "latent_path",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MiniMaxH3MotionContextSaveLatent"
+      },
+      "widgets_values": [
+        "h3_3d_guide/sequence_01/clip",
+        1
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "h3_3d_guide/sequence_01/clip",
+        "clip_index": 1
+      }
+    },
+    {
+      "id": 271,
+      "type": "LoadImage",
+      "pos": [
+        1750,
+        650
+      ],
+      "size": [
+        340,
+        314
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            30
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "opening-layout.png",
+        "image"
+      ],
+      "title": "opening-layout.png"
+    },
+    {
+      "id": 272,
+      "type": "MiniMaxH3AddGuide",
+      "pos": [
+        1750,
+        200
+      ],
+      "size": [
+        340,
+        250
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 27
+        },
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "link": 28
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 29
+        },
+        {
+          "name": "audio_vae",
+          "type": "VAE",
+          "link": null
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 30
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            31
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MiniMaxH3AddGuide"
+      },
+      "widgets_values": [
+        0
+      ],
+      "title": "Optional first-frame layout · frame 0"
+    }
+  ],
+  "links": [
+    [
+      1,
+      152,
+      0,
+      92,
+      0,
+      "VIDEO"
+    ],
+    [
+      2,
+      125,
+      0,
+      121,
+      0,
+      "LATENT"
+    ],
+    [
+      3,
+      120,
+      0,
+      121,
+      1,
+      "VAE"
+    ],
+    [
+      4,
+      125,
+      0,
+      122,
+      0,
+      "LATENT"
+    ],
+    [
+      5,
+      119,
+      0,
+      122,
+      1,
+      "VAE"
+    ],
+    [
+      6,
+      129,
+      0,
+      125,
+      0,
+      "NOISE"
+    ],
+    [
+      7,
+      126,
+      0,
+      125,
+      1,
+      "GUIDER"
+    ],
+    [
+      8,
+      123,
+      0,
+      125,
+      2,
+      "SAMPLER"
+    ],
+    [
+      9,
+      147,
+      0,
+      125,
+      3,
+      "SIGMAS"
+    ],
+    [
+      10,
+      136,
+      1,
+      125,
+      4,
+      "LATENT"
+    ],
+    [
+      11,
+      145,
+      0,
+      126,
+      0,
+      "MODEL"
+    ],
+    [
+      13,
+      138,
+      0,
+      136,
+      13,
+      "STRING"
+    ],
+    [
+      14,
+      128,
+      0,
+      136,
+      0,
+      "CLIP"
+    ],
+    [
+      15,
+      119,
+      0,
+      136,
+      1,
+      "VAE"
+    ],
+    [
+      16,
+      120,
+      0,
+      136,
+      2,
+      "VAE"
+    ],
+    [
+      17,
+      149,
+      0,
+      136,
+      3,
+      "IMAGE"
+    ],
+    [
+      18,
+      162,
+      0,
+      136,
+      8,
+      "IMAGE"
+    ],
+    [
+      19,
+      150,
+      0,
+      136,
+      4,
+      "IMAGE"
+    ],
+    [
+      20,
+      163,
+      0,
+      136,
+      5,
+      "IMAGE"
+    ],
+    [
+      21,
+      164,
+      0,
+      136,
+      6,
+      "IMAGE"
+    ],
+    [
+      22,
+      127,
+      0,
+      145,
+      0,
+      "MODEL"
+    ],
+    [
+      23,
+      122,
+      0,
+      152,
+      0,
+      "IMAGE"
+    ],
+    [
+      24,
+      121,
+      0,
+      152,
+      1,
+      "AUDIO"
+    ],
+    [
+      25,
+      161,
+      0,
+      162,
+      0,
+      "VIDEO"
+    ],
+    [
+      26,
+      125,
+      0,
+      205,
+      0,
+      "LATENT"
+    ],
+    [
+      27,
+      136,
+      0,
+      272,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      28,
+      136,
+      1,
+      272,
+      1,
+      "LATENT"
+    ],
+    [
+      29,
+      119,
+      0,
+      272,
+      2,
+      "VAE"
+    ],
+    [
+      30,
+      271,
+      0,
+      272,
+      4,
+      "IMAGE"
+    ],
+    [
+      31,
+      272,
+      0,
+      126,
+      1,
+      "CONDITIONING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.3,
+      "offset": [
+        -2150,
+        -100
+      ]
+    },
+    "frontendVersion": "1.53.10",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true,
+    "optional_layout_chain": {
+      "role": "First clip with native frame0 layout, saves Motion Context slot1 for template02",
+      "not_a_ControlNet": true,
+      "additional_model_weights": false,
+      "actual_wiring_verified_in_job295": true
+    }
+  },
+  "extensions": {
+    "92": {
+      "class_type": "SaveVideo",
+      "inputs": {
+        "video": [
+          "130",
+          0
+        ],
+        "filename_prefix": "director-studio/prj_f25a5a6008fd/sht_56231f50062e/new-narration-01",
+        "format": "auto",
+        "codec": "auto",
+        "format.codec": "auto"
+      },
+      "_meta": {
+        "title": "Save Video"
+      }
+    },
+    "119": {
+      "class_type": "VAELoader",
+      "inputs": {
+        "vae_name": "minimax_h3_video_vae_int8_convrot.safetensors"
+      },
+      "_meta": {
+        "title": "Video VAE"
+      }
+    },
+    "120": {
+      "class_type": "VAELoader",
+      "inputs": {
+        "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+      },
+      "_meta": {
+        "title": "Audio VAE"
+      }
+    },
+    "121": {
+      "class_type": "VAEDecodeAudio",
+      "inputs": {
+        "samples": [
+          "125",
+          0
+        ],
+        "vae": [
+          "120",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Decode Audio"
+      }
+    },
+    "122": {
+      "class_type": "VAEDecode",
+      "inputs": {
+        "samples": [
+          "125",
+          0
+        ],
+        "vae": [
+          "119",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Decode Video"
+      }
+    },
+    "123": {
+      "class_type": "KSamplerSelect",
+      "inputs": {
+        "sampler_name": "euler"
+      },
+      "_meta": {
+        "title": "Fast 4-step Sampler"
+      }
+    },
+    "124": {
+      "class_type": "BasicScheduler",
+      "inputs": {
+        "model": [
+          "134",
+          0
+        ],
+        "scheduler": "beta",
+        "steps": 4,
+        "denoise": 1
+      },
+      "_meta": {
+        "title": "Fast 4-step Scheduler"
+      }
+    },
+    "125": {
+      "class_type": "SamplerCustomAdvanced",
+      "inputs": {
+        "noise": [
+          "129",
+          0
+        ],
+        "guider": [
+          "126",
+          0
+        ],
+        "sampler": [
+          "123",
+          0
+        ],
+        "sigmas": [
+          "124",
+          0
+        ],
+        "latent_image": [
+          "136",
+          1
+        ]
+      },
+      "_meta": {
+        "title": "Sample"
+      }
+    },
+    "126": {
+      "class_type": "BasicGuider",
+      "inputs": {
+        "model": [
+          "134",
+          0
+        ],
+        "conditioning": [
+          "144",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Guider"
+      }
+    },
+    "127": {
+      "class_type": "UNETLoader",
+      "inputs": {
+        "unet_name": "Minimax-h3_Singularity_ref2va_Pruned_v1.3_int8.safetensors",
+        "weight_dtype": "default"
+      },
+      "_meta": {
+        "title": "Singularity Ref2VA v1.3"
+      }
+    },
+    "128": {
+      "class_type": "CLIPLoader",
+      "inputs": {
+        "clip_name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+        "type": "minimax",
+        "device": "default"
+      },
+      "_meta": {
+        "title": "H3 Text Encoder"
+      }
+    },
+    "129": {
+      "class_type": "RandomNoise",
+      "inputs": {
+        "noise_seed": 1892457989
+      },
+      "_meta": {
+        "title": "Noise"
+      }
+    },
+    "130": {
+      "class_type": "CreateVideo",
+      "inputs": {
+        "images": [
+          "146",
+          0
+        ],
+        "audio": [
+          "147",
+          0
+        ],
+        "fps": 24,
+        "bit_depth": 8
+      },
+      "_meta": {
+        "title": "Create Video"
+      }
+    },
+    "131": {
+      "class_type": "LoraLoaderModelOnly",
+      "inputs": {
+        "model": [
+          "127",
+          0
+        ],
+        "lora_name": "minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors",
+        "strength_model": 1
+      },
+      "_meta": {
+        "title": "Turbo 4-step v0.1"
+      }
+    },
+    "132": {
+      "class_type": "MiniMaxH3SigmaShift",
+      "inputs": {
+        "model": [
+          "131",
+          0
+        ],
+        "shift_video": 12,
+        "shift_audio": 3
+      },
+      "_meta": {
+        "title": "MiniMax H3 Sigma Shift"
+      }
+    },
+    "133": {
+      "class_type": "H3MemoryOptimization",
+      "inputs": {
+        "model": [
+          "132",
+          0
+        ],
+        "fused_qkv": "auto",
+        "mlp_memory": "auto",
+        "chunk_rows": 4096,
+        "preserve_precision": true,
+        "precision_mode": "Auto",
+        "qkv_streaming_mode": "Auto",
+        "embedding_memory_mode": "Auto",
+        "kitchen_v_memory_mode": "Standard"
+      },
+      "_meta": {
+        "title": "H3 Memory Optimization"
+      }
+    },
+    "134": {
+      "class_type": "ModelAttentionBackend",
+      "inputs": {
+        "model": [
+          "133",
+          0
+        ],
+        "attention": "comfy kitchen attention"
+      },
+      "_meta": {
+        "title": "Kitchen INT8 Attention"
+      }
+    },
+    "136": {
+      "class_type": "MiniMaxH3ReferenceToVideo",
+      "inputs": {
+        "clip": [
+          "128",
+          0
+        ],
+        "vae": [
+          "119",
+          0
+        ],
+        "audio_vae": [
+          "120",
+          0
+        ],
+        "prompt": "subject_definitions:\nTao is the single adult presenter: <Picture 1> defines his olive utility vest, black rolled-sleeve shirt, black trousers and dark shoes; <Picture 2> defines his wavy dark hair, thin moustache, goatee and opaque round black sunglasses. Keep his original face, real human proportions and a friendly gentle smile. <Audio 1> defines Tao's established male voice. Speaker identities: S1 is Tao. <Picture 3> defines the destination 1990s games room viewed inward from its entrance: near left white jamb, sofa and window left, ordinary CRT on a stationary wood stand right, blue-gray carpet and uninterrupted burgundy rear wall. It contains no opposing open doorway. <Picture 4> defines Mia's angular low-poly game character, block hair, polygon limbs and mitten hands, visible only inside the CRT game world.\nsummary:\nTao leaves the existing 1980s study through its existing doorway, crosses the already visible beige hallway, turns into the adjacent 1990s games room and shows the low-poly character on its CRT, in one physical camera move.\nretention_analysis:\nKeep both original Tao reference images active for the whole clip, one Tao only, stable face, sunglasses and wardrobe. Reference-sheet white backgrounds and duplicate views are not scenery. Furniture stays fixed. The room, prop and identity references condition the entire clip; they are not starting or ending frames. Friendly relaxed expression throughout, closed-mouth smile between speech. No subtitles, score or dialogue invented beyond the supplied blocks. The actual previous video's final movement and pose are the opening continuity source. Preserve camera motion through a physical threshold; rooms change by travel, never by a cut, dissolve, wipe or morph. Do not restart or repeat the previous narration. The existing beige hall visible beyond the study door remains a separate fixed space; destination room design cannot replace that hall. The destination reference is its inward entrance view, not a reverse view out of the study. Its rear wall remains solid burgundy.\ndetailed_description:\n0-2.5 seconds: Continue the exact final view of the preceding video. Tao of <Picture 1> and <Picture 2> stands left of the small 1980s computer at frame-right, orange wallpaper and lamp unchanged. He turns toward the existing white-framed opening at frame-left behind him and walks to it. Camera smoothly pans left and follows just behind his right shoulder; leave the computer, lamp and shelves fixed behind. The beige hall already visible through this opening retains its pale walls, floor and small cabinet. Start the one narration at 0.8 seconds, finish the complete line by 8 seconds. Tao (S1), in the established <Audio 1> voice, speaks once with clear slightly brisk conversational pacing and a warm gentle smile: <d>[English] By the 1990s, games gave her a body. Low-poly, but now she could move through a world of her own.</d> 2.5-4 seconds: Tao and the same camera pass fully through the existing study door into that beige hall. Keep the white jamb rigid as it passes the near lens edge. The hall ahead remains beige; it does not turn red. 4-6 seconds: Once fully in the hall, Tao turns right into the adjacent games-room entrance previously outside the camera's view. Camera follows the actual rightward turn and crosses this second white threshold. Only through that side opening reveal the destination interior of <Picture 3>, seen inward: sofa and window left, CRT on fixed stand right, solid burgundy wall ahead. Leave the beige hall behind the entrance. 6-8 seconds: Inside the games room camera arcs gently alongside Tao as he approaches the CRT and finishes speaking. 8-10.5 seconds: The same camera approaches the actual CRT glass to show the low-poly Mia of <Picture 4> walking inside her polygon game world. Retain the CRT bezel and Tao's hand at the edge; never make the character physically present. 10.5-13 seconds: Physically retreat along the same camera path to a smiling silent Tao beside the fixed television. His mouth rests after the supplied line; only room tone and footsteps continue. Preserve uninterrupted parallax, rigid walls and both thresholds. No cut, dissolve, morph, new doorway in an already seen wall, furniture movement, repeated speech or extra words.\noverall_soundscape:\nNatural clean production sound, quiet room tone and soft footsteps; subtle paper or key sounds where visibly motivated. Only the assigned speaker voices speak. No reference-recording words, repeated phrases or additional speakers.\nnon_diegetic_music:\nNone. No background music.",
+        "width": 1376,
+        "height": 768,
+        "length": 345,
+        "ref_image_size": "match",
+        "ref_images.ref_image_0": [
+          "137",
+          0
+        ],
+        "ref_images.ref_image_1": [
+          "138",
+          0
+        ],
+        "ref_images.ref_image_2": [
+          "139",
+          0
+        ],
+        "ref_images.ref_image_3": [
+          "140",
+          0
+        ],
+        "ref_audios.ref_audio_0": [
+          "141",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "MiniMax H3 Reference To Video"
+      }
+    },
+    "137": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "ds_job_b31b0a0c0f5e_ref_0.png"
+      },
+      "_meta": {
+        "title": "Ref Image 0"
+      }
+    },
+    "138": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "ds_job_b31b0a0c0f5e_ref_1.png"
+      },
+      "_meta": {
+        "title": "Ref Image 1"
+      }
+    },
+    "139": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "ds_job_b31b0a0c0f5e_ref_2.png"
+      },
+      "_meta": {
+        "title": "Ref Image 2"
+      }
+    },
+    "140": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "ds_job_b31b0a0c0f5e_ref_3.png"
+      },
+      "_meta": {
+        "title": "Ref Image 3"
+      }
+    },
+    "141": {
+      "class_type": "LoadAudio",
+      "inputs": {
+        "audio": "ds_job_b31b0a0c0f5e_voice_audio_1.wav"
+      },
+      "_meta": {
+        "title": "Ref Audio 0"
+      }
+    },
+    "142": {
+      "class_type": "LoadVideo",
+      "inputs": {
+        "file": "ds_job_b31b0a0c0f5e_context_video.mp4"
+      },
+      "_meta": {
+        "title": "Context Video"
+      }
+    },
+    "143": {
+      "class_type": "GetVideoComponents",
+      "inputs": {
+        "video": [
+          "142",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Context Components"
+      }
+    },
+    "144": {
+      "class_type": "MiniMaxH3MotionContext",
+      "inputs": {
+        "conditioning": [
+          "136",
+          0
+        ],
+        "vae": [
+          "119",
+          0
+        ],
+        "latent": [
+          "136",
+          1
+        ],
+        "context_length": "22",
+        "audio_context_length": 0,
+        "context_frames": [
+          "143",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Motion Context"
+      }
+    },
+    "145": {
+      "class_type": "MiniMaxH3MotionContextTrim",
+      "inputs": {
+        "images": [
+          "122",
+          0
+        ],
+        "audio": [
+          "121",
+          0
+        ],
+        "trim_frames": [
+          "144",
+          1
+        ],
+        "fps": 24,
+        "match_tail": true
+      },
+      "_meta": {
+        "title": "Trim Context Overlap"
+      }
+    },
+    "146": {
+      "class_type": "ImageFromBatch",
+      "inputs": {
+        "image": [
+          "145",
+          0
+        ],
+        "batch_index": 0,
+        "length": 311
+      },
+      "_meta": {
+        "title": "Delivered Frames"
+      }
+    },
+    "147": {
+      "class_type": "TrimAudioDuration",
+      "inputs": {
+        "audio": [
+          "145",
+          1
+        ],
+        "start_index": 0,
+        "duration": 12.958333333333334
+      },
+      "_meta": {
+        "title": "Delivered Audio"
+      }
+    }
+  },
+  "version": 0.4
+}

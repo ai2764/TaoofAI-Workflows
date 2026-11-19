@@ -109,3 +109,20 @@ In the local H3 build used for this episode, the reference-video encoder trims i
 With 22 frames of inherited context removed, the 158-frame generation provides 136 new frames. The episode's equal-duration comparison displays the first 124 of those new frames against original guide frames 22 through 145. Thus the selected action is **124 + 124 = 248 frames (10.33 seconds at 24 fps)**; the pause at the join is an editorial hold shown separately.
 
 All downloadable media names are placeholders. Six media loaders in 04 require your own four appearance images, guide video, and opening layout. Importing the template without those files can show missing-media warnings; select the real files before running. The UI was imported into the current frontend and all 25 nodes and generation inputs round-tripped to the API variant without submitting a GPU job. This validates wiring, not a fresh generation on another installation.
+
+
+## Optional: native ending layout with Motion Context
+
+Use [05-tail-layout-motion-context.json](05-tail-layout-motion-context.json) ([API](api/05-tail-layout-motion-context.api.json)) instead of **02**, after completing **01** or **04** and saving its actual first-clip context. This adds `ending-layout.png` to the existing native **MiniMaxH3AddGuide**, with **frame_idx = -1**. The native node resolves this to the last frame of the current generation. It is separate from the four ordinary Picture references and requires no additional ControlNet or model weights.
+
+The graph passes Reference To Video positive conditioning through Add Guide, then Motion Context, then the Guider. Motion Context retains the ending anchor while pinning the inherited head. Add Guide has only one conditioning output; the sampler latent still comes directly from Reference To Video.
+
+- Output generation: **1280 × 704**, **158 frames** at 24 fps.
+- Native ending index: **157** before trimming.
+- Motion Context removes **22 inherited frames**, leaving **136 new frames**. The ending anchor corresponds to new-frame index **135**.
+- The continuation guide should include the same 22-frame overlap at its beginning. New output frame0 corresponds to guide frame22; keep the same source/result clock when comparing.
+- Prepare an ending image with the same character, clothing, lighting and geography, and a camera composition consistent with the guide's end. The native node uses aspect-preserving cover-crop to the output canvas: allow headroom and use the output aspect ratio when framing the image.
+
+The ending image guides the result; it is not a promise of pixel-identical output or perfect camera following. Review the actual transition and final frames, rather than pasting the target still over a failed result. The episode's revised motorcycle reveal combines this native ending image with its actual previous-clip Motion Context. The riding approach may be sped up in the edit, with the rough guide and output receiving identical timing changes; the generation originals remain unchanged.
+
+All six media loaders require your own files: four appearance references, the continuation guide video, and `ending-layout.png`. Templates 01/02/03/04 remain unchanged. The UI was imported into the frontend and all 28 nodes round-tripped to the API inputs without submitting a generation job. Missing-media warnings are expected until you select your own files. No private images, voices or latent caches are included.

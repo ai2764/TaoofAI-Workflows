@@ -2,6 +2,11 @@
 
 Generate a finished shot from reference pictures, a rendered 3D guide video and a prompt. Then carry the first generation's video/audio latent into the next clip.
 
+
+## Download a complete tested example
+
+[Short airship approach — inputs, workflow, exact camera-ablation prompt and actual result](examples/airship-guide/). This example includes the media; the five general templates below still use placeholder filenames. The airship retains broad camera following without detailed camera directions, with documented framing limitations.
+
 ## Open in ComfyUI
 
 1. Open [01-first-clip.json](01-first-clip.json), choose your installed models and reference files, and run the first clip. It saves latent slot **1**.

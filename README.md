@@ -6,6 +6,8 @@ Reusable ComfyUI workflows from Tao of AI videos.
 
 - [3D guide video + Motion Context](H3-3D-Guide-Motion-Context/): first-clip and continuation workflows, UI/API JSON, setup notes and the connections demonstrated in the video.
 
+- [Runnable short-airship example](H3-3D-Guide-Motion-Context/examples/airship-guide/): bundled input media, tested prompt without specific camera directions, UI/API workflow and actual result.
+
 ## Director Studio / Qwen asset workflows
 
 - [Actor workbench](DS_qwen_actor_workbench_visual.json)

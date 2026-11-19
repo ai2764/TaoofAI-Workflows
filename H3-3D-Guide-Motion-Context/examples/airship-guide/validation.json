@@ -1,0 +1,16 @@
+{
+  "test_date": "2026-11-19",
+  "prompt_id": "aa1fddae-5578-4df2-b1b1-f8f4a7f7e1d7",
+  "generation_status": "success",
+  "actual_tested_result_sha256": "4ffab5db91fe54f33486c542f471a3b9756dbac765eb04c28434274979738150",
+  "published_changes_from_executed_graph": "Only media loader filenames changed to portable names with identical file bytes, output filename prefix changed, and legacy SaveVideo codec auto made explicit. Prompt, generation inputs, links, seed and model selections unchanged. Published renamed graph not submitted as a separate generation.",
+  "ui_import": {
+    "nodes": 22,
+    "generation_input_differences": [],
+    "gpu_submissions_during_import": 0,
+    "ignored_ui_only_field": "LoadVideo video-preview empty string"
+  },
+  "input_checksums": "manifest.json",
+  "decode_validation": "Actual generated video decoded successfully; native 1280x704, 124 frames at 24 fps.",
+  "claim_scope": "Broad camera following in this case; not exact matching, universal reliability or guaranteed reproduction on other installations."
+}

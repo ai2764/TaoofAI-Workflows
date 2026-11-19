@@ -1,0 +1,50 @@
+{
+  "files": [
+    {
+      "path": "input/taoofai_airship_short-mia-body.png",
+      "bytes": 1772340,
+      "sha256": "bd6c7a64e975a9cd0971da93c7712327788265dbc040943d59f9002fff4df4be"
+    },
+    {
+      "path": "input/taoofai_airship_short-city.png",
+      "bytes": 3342704,
+      "sha256": "98de3df05a10f447cabdca87b70d50158dd5a47deb4c6eca3eaf3e1746cbf05e"
+    },
+    {
+      "path": "input/taoofai_airship_short-mia-face.png",
+      "bytes": 94992,
+      "sha256": "fa6b2c10929146f25c5f1f7b841a8707137c16bd8a22a00850dfb1d4573d333b"
+    },
+    {
+      "path": "input/taoofai_airship_short-airship.png",
+      "bytes": 2224613,
+      "sha256": "74491df4089f6f811e022e547b3496a354cce5e18154bb127fbab4e84af95fcc"
+    },
+    {
+      "path": "input/taoofai_airship_short-guide.mp4",
+      "bytes": 341513,
+      "sha256": "da8b10c6f2eb56e858c005331a07c682eada2bdf5b97e333895f53dd383280be"
+    }
+  ],
+  "image_order": [
+    "taoofai_airship_short-mia-body.png",
+    "taoofai_airship_short-city.png",
+    "taoofai_airship_short-mia-face.png",
+    "taoofai_airship_short-airship.png"
+  ],
+  "settings": {
+    "seed": 2026111919,
+    "frames": 124,
+    "fps": 24,
+    "width": 1280,
+    "height": 704,
+    "sampler": "lcm",
+    "steps": 6
+  },
+  "prompt_policy": "Specific camera path, viewpoint, distance and shot-size instructions removed. Generic follow-Video-1 instructions, proxy mapping, actor actions and event times remain.",
+  "result": {
+    "path": "result.mp4",
+    "bytes": 4933817,
+    "sha256": "4ffab5db91fe54f33486c542f471a3b9756dbac765eb04c28434274979738150"
+  }
+}
